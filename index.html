@@ -3,124 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV DE ORADIE</title>
-    <Link rel="stylesheet" href="style.css">
-        <style>body{
-    background-color: gray;
-    color:black;
-    font-family: Arial, Helvetica, sans-serif;
-    height:100%;
-    margin:0;
-    display:flex;
-    flex-direction:column;}
-.content{flex:1;}
-.menu{background: black;
-    padding: 20px;}
+    <title>Dondo N’Sole Ebale Oradie - Portfolio</title>
+    <!-- Google Fonts & FontAwesome pour les icônes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+        }
 
-.menu ul{display: flex;
-    justify-content: center;
-    gap: 30px;
-    list-style: none;}
-.menu a{color: white;
-    text-decoration: none;
-    font-size: 20px;
-    transition: 0.3s;}
-h1{color: black;
-    text-align: center;
-    min-width: 400;}
-h2{color: black;text-align: left;}
-.button{display: flex;justify-content: space-between;align-items: center;gap: 20px;padding:0 20px;}
-button{background-color: black ;border: none;padding: 10px;}
-button a{color: white;text-decoration: none;}
-</style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Style de la balise Marquee */
+        .marquee-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 4px 0;
+            z-index: 1001;
+            letter-spacing: 1px;
+        }
+
+        header {
+            position: fixed;
+            top: 28px; /* Décalé vers le bas pour laisser place au marquee */
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: padding 0.3s ease, top 0.3s ease;
+        }
+
+        header.scrolled {
+            top: 24px;
+            padding: 15px 50px;
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 400;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+
+        section {
+            padding: 140px 50px 80px; /* Augmenté pour éviter que le header fixe ne cache le contenu */
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero h2.subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .typed-text {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            min-height: 40px;
+        }
+
+        .cursor {
+            display: inline-block;
+            background-color: var(--accent);
+            margin-left: 2px;
+            width: 3px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+        }
+
+        h2.section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .skills-list li {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .skills-list li:hover {
+            background: rgba(56, 189, 248, 0.2);
+        }
+
+        /* Classe pour l'animation au scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Bouton Retour en haut */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        #scrollTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scrollTopBtn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #090d16;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            section { padding: 110px 20px 50px; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="contenu">
-    <section id="ACCEUIL" class="section-acceui">
-    <ul> 
-     <h1>DONDO-N'SOLE EBALE ORADIE</h1>
-     <h2 style="text-align: center;">INGENIEUR EN PROGRAMMATION WEB</h2>
-    </ul>
-    </section>
-</div>
-    </header>
-    <div class="button">
-    <button><a href="FORMATION.html" class="btn" style="color: white;">FORMATION</a></button>
-    <button><a href="COMPÉTENCES.html" class="btn" style="color: white;">COMPETENCES</a></button>
-    <button><a href="QUALITÉS.html" class="btn" style="color: white;">QUALITES</a></button>
-    <button><a href="LANGUES.html" class="btn" style="color: white;">LANGUES</a></button>
-    <button><a href="CONTACT.html" class="btn" style="color: white;">CONTACT</a></button>
-</div>
-<table>
-    <tr>
-    <td>
-    <h2>FORMATION</h2>
-    <section id="FORMATION" class="section-formation">
-    <ul>
-    <li>Diplome en sciences au Complexe Scolaire Mgr MOKE</li>
-    <li>Licence en cours a l'UPC</li>
-    <li>Formation individuel en MS WORD et EXCEL sur UDEMY</li>
-    </ul>
-    </section>
-    </td>  
-    <td>    
-     <h2>COMPETENCES</h2>
-    <section id="COMPETENCES" class="section-competences">
-    <ul>
-     <li>MS WORD</li>
-     <li>EXCEL</li>
-     <li>PYTHON</li>
-     <li>HTML</li>
-     <li>CSS</li>
-    </ul>
-    </section>
-    </td>
-    <td>
-    <h2>QUALITES</h2>
-    <section id="QUALITES" class="section-qualites">
-    <ul>
-    <li>Adaptabilite</li>
-    <li>Sens de l'observation</li>
-    <li>Travail sous pression</li>
-    <li>Sens de la discretion</li>
-    <li>Travail en equipe</li>
-    </ul>
-    </section>
-    </td>
-    <td>
-     <h2>LANGUES</h2>
-    <Section id="LANGUES" class="section-langues">
-    <ul>
-    <li>LINGALA: Tres Bien</li>
-    <li>FRANCAIS: Tres Bien</li>
-    <li>ANGLAIS: Bien</li>
-    </ul>
-    </Section>
-    </td>
-    <td>
-     <h2>CONTACT</h2>
-    <Section id="CONTACT" class="section-contact">
-    <ul>
-     <li><p><strong>Address Email:</strong><a href="mailto:dondokhalil@gmail.com">dondokhalil@gmail.com</a></p></li>
-     <li><strong>NUMERO: 0977108848</strong></li>
-    </ul>
-    </Section> 
-    </td>
-    </tr>
-</table>
-    <div class="btn-download">
-    <button>
-    <a href="CV_DONDO.docx"class="btn-download">TELECHARGER EN WORD</a>
-    </button>
-    <button>
-    <a href="CV_Dondo_Oradie.pdf" download="CV_Dondo_Oradie.pdf" class="btn-download">TELECHARGER EN PDF</a>
-    </button>
+
+    <!-- Balise Marquee au tout début -->
+    <div class="marquee-container">
+        <marquee scrollamount="6">Mon_Portfolio... &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Bienvenue sur mon site personnel &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Mon_Portfolio...</marquee>
     </div>
- </div>
+
+    <!-- Menu de navigation -->
+    <header id="navbar">
+        <div class="logo">Dondo N’Sole Ebale Oradie</div>
+        <nav>
+            <a href="#about" class="nav-link active">À propos</a>
+            <a href="#project" class="nav-link">Projet</a>
+            <a href="#skills" class="nav-link">Compétences</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section Accueil -->
+        <section class="hero" id="about">
+            <h2 class="subtitle">Bonjour, je suis</h2>
+            <h1>Dondo N’Sole Ebale <span>Oradie</span></h1>
+            <div class="typed-text"><span id="element"></span><span class="cursor">&nbsp;</span></div>
+            <p>Étudiant en Licence à l'Université Protestante au Congo (UPC). Passionné par la conception d'applications web modernes et de solutions logicielles utiles pour la communauté à Kinshasa.</p>
+            <a href="#project" class="btn">Découvrir mon projet <i class="fas fa-arrow-down" style="margin-left: 8px;"></i></a>
+        </section>
+
+        <!-- Section Projet Phare -->
+        <section id="project" class="reveal">
+            <h2 class="section-title">Projet Phare</h2>
+            <div class="card">
+                <h3>MOB_CONGO</h3>
+                <p><strong>Plateforme web de localisation des services de santé à Kinshasa</strong></p>
+                <br>
+                <p>Conçu et réalisé dans le cadre de ma monographie universitaire à l'UPC. Cette application permet de localiser facilement les hôpitaux, cliniques et pharmacies à travers les différentes communes de Kinshasa grâce à une interface interactive et ergonomique.</p>
+                <br>
+                <p style="color: var(--text-muted);"><i class="fas fa-tools" style="color: var(--accent); margin-right: 5px;"></i> <strong>Technologies :</strong> HTML5, CSS3, JavaScript, PHP, Leaflet.js</p>
+            </div>
+        </section>
+
+        <!-- Section Compétences -->
+        <section id="skills" class="reveal">
+            <h2 class="section-title">Compétences & Outils</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Développement Web</h3>
+                    <ul class="skills-list">
+                        <li>HTML5 / CSS3</li>
+                        <li>JavaScript</li>
+                        <li>PHP</li>
+                        <li>React / Node.js</li>
+                        <li>Leaflet.js</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Environnement & Outils</h3>
+                    <ul class="skills-list">
+                        <li>Visual Studio Code</li>
+                        <li>Git & GitHub</li>
+                        <li>Windows</li>
+                        <li>TradingView / MT5</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Langues</h3>
+                    <ul class="skills-list">
+                        <li>Français (Natif)</li>
+                        <li>Anglais</li>
+                        <li>Lingala</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="reveal">
+            <h2 class="section-title">Me Contacter</h2>
+            <div class="card" style="max-width: 600px;">
+                <p style="margin-bottom: 15px;"><i class="fas fa-envelope" style="color: var(--accent); width: 25px;"></i> Email : <a href="mailto:dondokhalil@gmail.com" style="color: var(--accent); text-decoration: none;">dondokhalil@gmail.com</a></p>
+                <p style="margin-bottom: 15px;"><i class="fas fa-phone" style="color: var(--accent); width: 25px;"></i> Téléphone : <span style="color: var(--accent);">0977108848</span></p>
+                <p><i class="fas fa-map-marker-alt" style="color: var(--accent); width: 25px;"></i> Localisation : Kinshasa, RDC</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bouton Retour en haut -->
+    <button id="scrollTopBtn" title="Remonter en haut"><i class="fas fa-arrow-up"></i></button>
+
     <footer>
-        <p style="text-align: center; background: black;
-          padding: 20px;color: white;">&copy; 2026 - Tous droits reserves <br>By DONDO-KHALIL EBALE ORADIE <br> <a href="https://www.linkedin.com/in/dondo-khalil-ebale-oradie-0b9b1a1b6/" style="color: white;text-decoration: none;">ME SUIVRE SUR LINKEDIN</a> <br> <a href="mailto:dondokhalil@gmail.com" style="color: white;text-decoration: none;">ME CONTACTER</a> </p>
+        <p>&copy; 2026 - Dondo N’Sole Ebale Oradie. Tous droits réservés.</p>
     </footer>
+
+    <!-- Script JavaScript Interactif -->
+    <script>
+        // 1. Effet de frappe (Typing Effect)
+        const words = ["Étudiant en Informatique", "Développeur Web Full-Stack", "Créateur de MOB_CONGO"];
+        let i = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('element').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('element').innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) {
+                        i++;
+                    } else {
+                        i = 0;
+                    }
+                    setTimeout(typingEffect, 500);
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+        typingEffect();
+
+        // 2. Animation au défilement (Scroll Reveal)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            const triggerBottom = window.innerHeight * 0.85;
+            revealElements.forEach(el => {
+                const boxTop = el.getBoundingClientRect().top;
+                if (boxTop < triggerBottom) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+        // 3. Header dynamique & Bouton Retour en haut
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>
